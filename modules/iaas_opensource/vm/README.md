@@ -73,6 +73,7 @@ module "vm" {
 | tags | Resource tags | map(string) | {} | no |
 | auto_power_on | Automatically power on the VM | bool | true | no |
 | secure_boot | Enable secure boot | bool | false | no |
+| boot_order | Boot order for the VM (must contain 1 to 3 values from: disk, cdrom, network) | list(string) | ["disk"] | no |
 
 ## Outputs
 
@@ -104,7 +105,33 @@ module "vm" {
     environment = "development"
     project     = "example"
   }
+
+  # Optional: Configure boot order
+  boot_order = ["disk", "network"]  # Boot from disk first, then try network boot
 }
+```
+
+### Boot Order Configuration
+
+The `boot_order` variable allows you to specify the boot sequence for the VM. You can include up to three devices in the order they should be tried:
+
+- `disk`: Boot from the system disk
+- `cdrom`: Boot from CD/DVD
+- `network`: Network boot (PXE)
+
+Example configurations:
+```hcl
+# Default: Boot from disk only
+boot_order = ["disk"]
+
+# Boot from disk, fallback to network boot
+boot_order = ["disk", "network"]
+
+# Try network boot first, then disk
+boot_order = ["network", "disk"]
+
+# Full sequence with all options
+boot_order = ["disk", "cdrom", "network"]
 ```
 
 For more examples, please refer to the [examples](../../../examples/iaas_opensource/vm) directory.

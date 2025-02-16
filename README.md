@@ -7,9 +7,27 @@ Collection of Terraform modules for Cloud Temple infrastructure management.
 ### OpenIaaS
 - [VM](modules/iaas_opensource/vm/README.md) - Manage OpenIaaS virtual machines
 
+## Installation
+
+To use a module from this repository in your Terraform configuration:
+
+```hcl
+module "vm" {
+  source = "github.com/Cloud-Temple/terraform-cloudtemple-modules//modules/iaas_opensource/vm"
+  
+  # Module configuration
+  vm_name   = "example-vm"
+  vm_cpu    = 2
+  vm_memory = 2048
+  # ... other configuration ...
+}
+```
+
+Note: The double slash (//) in the source URL is required to specify a subdirectory within the repository.
+
 ## Usage
 
-Examples are available in the [examples](examples) directory.
+Complete examples are available in the [examples](examples) directory. Each module has its own documentation and examples showing specific use cases.
 
 ## Requirements
 

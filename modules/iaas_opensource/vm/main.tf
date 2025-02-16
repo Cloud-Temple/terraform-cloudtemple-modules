@@ -8,6 +8,7 @@ resource "cloudtemple_compute_iaas_opensource_virtual_machine" "vm" {
   power_state         = "on"
   secure_boot         = var.secure_boot
   backup_sla_policies = [var.backup_policy_id]
+  boot_order         = var.boot_order
 
   tags = var.tags
 

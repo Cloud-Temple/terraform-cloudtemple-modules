@@ -14,7 +14,7 @@ provider "cloudtemple" {
 }
 
 module "vm" {
-  source = "../../../modules/iaas_opensource/vm"
+  source = "github.com/Cloud-Temple/terraform-cloudtemple-modules//modules/iaas_opensource/vm"
 
   # Basic VM Configuration
   vm_name   = "example-vm"
@@ -35,6 +35,9 @@ module "vm" {
     environment = "development"
     project     = "example"
   }
+
+  # Boot order configuration
+  boot_order = ["disk", "network"]  # Boot from disk first, fallback to network boot
 }
 
 # Output the created VM details
