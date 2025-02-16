@@ -18,7 +18,7 @@ module "vm" {
 
   vm_name   = "example-vm"
   vm_cpu    = 2
-  vm_memory = 2048  # MB
+  vm_memory = 2  # GB
 
   # Infrastructure
   sr           = "sr-id"           # Storage Repository ID
@@ -64,7 +64,7 @@ module "vm" {
 |------|-------------|------|---------|:--------:|
 | vm_name | Name of the virtual machine | string | n/a | yes |
 | vm_cpu | Number of CPUs | number | 2 | no |
-| vm_memory | Memory size in MB | number | 2048 | no |
+| vm_memory | Memory size in GB (provider automatically adds 2MB overhead) | number | 2 | no |
 | sr | Storage Repository ID | string | n/a | yes |
 | network_name | Network ID | string | n/a | yes |
 | template_id | VM Template ID | string | n/a | yes |
@@ -73,7 +73,7 @@ module "vm" {
 | tags | Resource tags | map(string) | {} | no |
 | auto_power_on | Automatically power on the VM | bool | true | no |
 | secure_boot | Enable secure boot | bool | false | no |
-| boot_order | Boot order for the VM (must contain 1 to 3 values from: disk, cdrom, network) | list(string) | ["disk"] | no |
+| boot_order | Boot order for the VM (must contain 1 to 3 values) | list(string) | ["Hard-Drive"] | no |
 
 ## Outputs
 
@@ -82,36 +82,21 @@ module "vm" {
 | vm_id | The ID of the created VM |
 | vm_name | The name of the created VM |
 
-## Examples
+## Memory Configuration
 
-### Basic Usage
+The `vm_memory` variable specifies the amount of memory in GB. The provider automatically adds a 2MB (2072576 bytes) overhead to the specified memory value. For example:
 
 ```hcl
-module "vm" {
-  source = "github.com/Cloud-Temple/terraform-cloudtemple-modules//modules/iaas_opensource/vm"
+vm_memory = 2  # Specifies 2GB
+# Actual memory will be 2GB + 2MB = 2149556224 bytes
 
-  vm_name   = "example-vm"
-  vm_cpu    = 2
-  vm_memory = 2048
-
-  sr           = "6b70b6c2-4c9c-45ac-b59c-38b5381fd67b"
-  network_name = "a572dbd1-a5f6-4a5b-87f0-597b9c67206d"
-  template_id  = "cfe69ef1-696f-4324-a775-65ba7cd6f678"
-
-  disk_size        = 50
-  backup_policy_id = "c0ab054b-e392-4f5d-882b-4b75a33f79de"
-
-  tags = {
-    environment = "development"
-    project     = "example"
-  }
-
-  # Optional: Configure boot order
-  boot_order = ["disk", "network"]  # Boot from disk first, then try network boot
-}
+vm_memory = 4  # Specifies 4GB
+# Actual memory will be 4GB + 2MB = 4296048640 bytes
 ```
 
-### Boot Order Configuration
+This behavior is handled by the provider and is consistent across all VM sizes.
+
+## Boot Order Configuration
 
 The `boot_order` variable allows you to specify the boot sequence for the VM. You can include up to three devices in the order they should be tried:
 
