@@ -16,7 +16,7 @@ variable "vm_cpu" {
 }
 
 variable "vm_memory" {
-  description = "Memory size in GB (provider automatically adds 2MB overhead)"
+  description = "Memory size in GB (will be allocated exactly as specified)"
   type        = number
   default     = 2  # 2 GB
 

@@ -84,17 +84,16 @@ module "vm" {
 
 ## Memory Configuration
 
-The `vm_memory` variable specifies the amount of memory in GB. The provider automatically adds a 2MB (2072576 bytes) overhead to the specified memory value. For example:
+The `vm_memory` variable specifies the amount of memory in GB. The module automatically compensates for the provider's 2MB overhead to ensure you get exactly the amount of memory specified. For example:
 
 ```hcl
-vm_memory = 2  # Specifies 2GB
-# Actual memory will be 2GB + 2MB = 2149556224 bytes
-
-vm_memory = 4  # Specifies 4GB
-# Actual memory will be 4GB + 2MB = 4296048640 bytes
+vm_memory = 2  # Results in exactly 2.000000 GB
+vm_memory = 4  # Results in exactly 4.000000 GB
 ```
 
-This behavior is handled by the provider and is consistent across all VM sizes.
+This means that when you specify `vm_memory = 4`, the VM will have exactly 4GB of memory, making memory allocation straightforward and predictable.
+
+Note: Internally, the module subtracts 2MB from the calculated value to compensate for the provider's automatic overhead.
 
 ## Boot Order Configuration
 

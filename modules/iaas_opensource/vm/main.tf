@@ -2,7 +2,7 @@
 resource "cloudtemple_compute_iaas_opensource_virtual_machine" "vm" {
   name                = var.vm_name
   cpu                 = var.vm_cpu
-  memory              = var.vm_memory * 1024 * 1024 * 1024  # GB to bytes (provider adds 2MB automatically)
+  memory              = (var.vm_memory * 1024 * 1024 * 1024) - 2072576  # Subtract 2MB to get exact GB value
   template_id         = var.template_id
   auto_power_on       = var.auto_power_on
   power_state         = "on"
