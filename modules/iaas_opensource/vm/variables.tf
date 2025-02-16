@@ -80,7 +80,7 @@ variable "secure_boot" {
 variable "boot_order" {
   description = "Boot order for the VM (must contain 1 to 3 values)"
   type        = list(string)
-  default     = ["disk"]  # Default to boot from disk
+  default     = ["Hard-Drive"]  # Default to boot from hard drive
   
   validation {
     condition     = length(var.boot_order) >= 1 && length(var.boot_order) <= 3
@@ -88,7 +88,7 @@ variable "boot_order" {
   }
   
   validation {
-    condition     = alltrue([for device in var.boot_order : contains(["disk", "cdrom", "network"], device)])
-    error_message = "Boot order devices must be one of: disk, cdrom, network"
+    condition     = alltrue([for device in var.boot_order : contains(["Hard-Drive", "DVD-Drive", "Network"], device)])
+    error_message = "Boot order devices must be one of: Hard-Drive, DVD-Drive, Network"
   }
 }

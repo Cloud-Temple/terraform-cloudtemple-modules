@@ -37,7 +37,7 @@ module "vm" {
   }
 
   # Boot order configuration
-  boot_order = ["disk", "network"]  # Boot from disk first, fallback to network boot
+  boot_order = ["Hard-Drive", "Network"]  # Boot from hard drive first, fallback to network boot
 }
 
 # Output the created VM details

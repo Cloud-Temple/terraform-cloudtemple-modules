@@ -115,23 +115,23 @@ module "vm" {
 
 The `boot_order` variable allows you to specify the boot sequence for the VM. You can include up to three devices in the order they should be tried:
 
-- `disk`: Boot from the system disk
-- `cdrom`: Boot from CD/DVD
-- `network`: Network boot (PXE)
+- `Hard-Drive`: Boot from the system disk
+- `DVD-Drive`: Boot from CD/DVD
+- `Network`: Network boot (PXE)
 
 Example configurations:
 ```hcl
-# Default: Boot from disk only
-boot_order = ["disk"]
+# Default: Boot from hard drive only
+boot_order = ["Hard-Drive"]
 
-# Boot from disk, fallback to network boot
-boot_order = ["disk", "network"]
+# Boot from hard drive, fallback to network boot
+boot_order = ["Hard-Drive", "Network"]
 
-# Try network boot first, then disk
-boot_order = ["network", "disk"]
+# Try network boot first, then hard drive
+boot_order = ["Network", "Hard-Drive"]
 
 # Full sequence with all options
-boot_order = ["disk", "cdrom", "network"]
+boot_order = ["Hard-Drive", "DVD-Drive", "Network"]
 ```
 
 For more examples, please refer to the [examples](../../../examples/iaas_opensource/vm) directory.
