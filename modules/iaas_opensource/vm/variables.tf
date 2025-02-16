@@ -16,13 +16,13 @@ variable "vm_cpu" {
 }
 
 variable "vm_memory" {
-  description = "Memory size in MB"
+  description = "Memory size in GB"
   type        = number
-  default     = 2048
+  default     = 2  # 2 GB
 
   validation {
-    condition     = var.vm_memory >= 1024
-    error_message = "Memory must be at least 1024 MB"
+    condition     = var.vm_memory >= 1
+    error_message = "Memory must be at least 1 GB"
   }
 }
 

@@ -1,0 +1,7 @@
+# Cloud Temple Provider Authentication
+# Replace with your actual credentials
+cloudtemple_client_id = "your-client-id"
+cloudtemple_secret_id = "your-secret-id"
+
+# Note: Copy this file to terraform.tfvars and update with your credentials
+# Do not commit terraform.tfvars to version control
