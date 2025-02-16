@@ -22,6 +22,14 @@ resource "cloudtemple_compute_iaas_opensource_virtual_machine" "vm" {
 resource "cloudtemple_compute_iaas_opensource_network_adapter" "primary" {
   network_id         = var.network_name
   virtual_machine_id = cloudtemple_compute_iaas_opensource_virtual_machine.vm.id
+
+  depends_on = [
+    cloudtemple_compute_iaas_opensource_virtual_machine.vm
+  ]
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 # System Disk
@@ -31,4 +39,12 @@ resource "cloudtemple_compute_iaas_opensource_virtual_disk" "system" {
   size                  = var.disk_size * 1024 * 1024 * 1024  # Convert GB to bytes
   storage_repository_id = var.sr
   virtual_machine_id    = cloudtemple_compute_iaas_opensource_virtual_machine.vm.id
+
+  depends_on = [
+    cloudtemple_compute_iaas_opensource_virtual_machine.vm
+  ]
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
